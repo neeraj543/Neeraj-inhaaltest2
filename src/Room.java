@@ -24,6 +24,9 @@ public class Room
     public static final String WEST = "west";
     public static final String UP = "up";
     public static final String DOWN = "down";
+
+    public boolean locked;
+
     private String description;
 //    private HashMap<String, Room> exits;
     private HashMap<Direction, Room> exits;
@@ -64,6 +67,14 @@ public class Room
 
     public Room getExit(String direction) {
         return exits.get(direction);
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     /**

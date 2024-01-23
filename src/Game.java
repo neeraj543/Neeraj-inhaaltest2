@@ -48,16 +48,16 @@ public class Game
         cellar = new Room("in the pub cellar");
         
         // initialise room exits
-        outside.setExit(Room.EAST, theater);
-        outside.setExit(Room.SOUTH, lab);
-        outside.setExit(Room.WEST, pub);
-        theater.setExit(Room.WEST, outside);
-        pub.setExit(Room.EAST, outside);
-        pub.setExit(Room.DOWN, cellar);
-        lab.setExit(Room.NORTH, outside);
-        lab.setExit(Room.EAST, office);
-        office.setExit(Room.WEST, lab);
-        cellar.setExit(Room.UP, pub);
+//        outside.setExit(Room.EAST, theater);
+//        outside.setExit(Room.SOUTH, lab);
+//        outside.setExit(Room.WEST, pub);
+//        theater.setExit(Room.WEST, outside);
+//        pub.setExit(Room.EAST, outside);
+//        pub.setExit(Room.DOWN, cellar);
+//        lab.setExit(Room.NORTH, outside);
+//        lab.setExit(Room.EAST, office);
+//        office.setExit(Room.WEST, lab);
+//        cellar.setExit(Room.UP, pub);
 
         player.setCurrentRoom(outside);
 
@@ -73,10 +73,17 @@ public class Game
         safeRoom.setItem(new Item("cash", "20400 € in bank notes of 100 €", 0.92));
         safeRoom.setItem(new Item("diamond", "a very rare, big and beautiful diamond", 0.23));
         sanctuary.setItem(new Item("key", "the key to open the safe room", 0.2));
-        theater.setExit(Room.NORTH, sanctuary);
-        sanctuary.setExit(Room.SOUTH, theater);
-        theater.setExit(Room.SOUTH, safeRoom);
-        safeRoom.setExit(Room.NORTH, theater);
+        safeRoom.setLocked(true);
+        sanctuary.setLocked(false);
+        cellar.setLocked(false);
+        pub.setLocked(false);
+        theater.setLocked(false);
+        office.setLocked(false);
+
+//        theater.setExit(Room.NORTH, sanctuary);
+//        sanctuary.setExit(Room.SOUTH, theater);
+//        theater.setExit(Room.SOUTH, safeRoom);
+//        safeRoom.setExit(Room.NORTH, theater);
     }
 
     /**
