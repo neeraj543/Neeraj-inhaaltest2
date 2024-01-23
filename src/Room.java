@@ -25,7 +25,9 @@ public class Room
     public static final String UP = "up";
     public static final String DOWN = "down";
     private String description;
-    private HashMap<String, Room> exits;
+//    private HashMap<String, Room> exits;
+    private HashMap<Direction, Room> exits;
+
     private ArrayList<Item> items;
 
     /**
@@ -52,9 +54,13 @@ public class Room
         return findItem;
     }
 
-    public void setExit(String direction, Room room) {
+//    public void setExit(String direction, Room room) {
+//        exits.put(direction, room);
+//    }
+    public void setExit(Direction direction, Room room) {
         exits.put(direction, room);
     }
+
 
     public Room getExit(String direction) {
         return exits.get(direction);
@@ -70,7 +76,7 @@ public class Room
 
     public String getExitString() {
         String exitString = "Exits: ";
-        for(String direction : exits.keySet()) {
+        for(Direction direction : exits.keySet()) {
             exitString += direction + " ";
         }
         return exitString;
