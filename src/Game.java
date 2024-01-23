@@ -48,16 +48,16 @@ public class Game
         cellar = new Room("in the pub cellar");
         
         // initialise room exits
-//        outside.setExit(Room.EAST, theater);
-//        outside.setExit(Room.SOUTH, lab);
-//        outside.setExit(Room.WEST, pub);
-//        theater.setExit(Room.WEST, outside);
-//        pub.setExit(Room.EAST, outside);
-//        pub.setExit(Room.DOWN, cellar);
-//        lab.setExit(Room.NORTH, outside);
-//        lab.setExit(Room.EAST, office);
-//        office.setExit(Room.WEST, lab);
-//        cellar.setExit(Room.UP, pub);
+        outside.setExit(Direction.valueOf(Room.EAST), theater);
+        outside.setExit(Direction.valueOf(Room.SOUTH), lab);
+        outside.setExit(Direction.valueOf(Room.WEST), pub);
+        theater.setExit(Direction.valueOf(Room.WEST), outside);
+        pub.setExit(Direction.valueOf(Room.EAST), outside);
+        pub.setExit(Direction.valueOf(Room.DOWN), cellar);
+        lab.setExit(Direction.valueOf(Room.NORTH), outside);
+        lab.setExit(Direction.valueOf(Room.EAST), office);
+        office.setExit(Direction.valueOf(Room.WEST), lab);
+        cellar.setExit(Direction.valueOf(Room.UP), pub);
 
         player.setCurrentRoom(outside);
 
@@ -79,11 +79,14 @@ public class Game
         pub.setLocked(false);
         theater.setLocked(false);
         office.setLocked(false);
+        outside.setLocked(false);
 
-//        theater.setExit(Room.NORTH, sanctuary);
-//        sanctuary.setExit(Room.SOUTH, theater);
-//        theater.setExit(Room.SOUTH, safeRoom);
-//        safeRoom.setExit(Room.NORTH, theater);
+        theater.setExit(Direction.valueOf(Room.NORTH), sanctuary);
+        sanctuary.setExit(Direction.valueOf(Room.SOUTH), theater);
+        if(theater.setExit(Direction.valueOf(null), safeRoom)){
+            System.out.println("Door is closed");
+        };
+        safeRoom.setExit(Direction.valueOf(Room.NORTH), theater);
     }
 
     /**
@@ -95,7 +98,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -156,11 +159,33 @@ public class Game
             case QUIT:
                 wantToQuit = quit(command);
                 break;
+            case USE:
+                useKey(command);
+                break;
             case UNKNOWN:
             default:
                 System.out.println("I don't know what you mean...");
         }
         return wantToQuit;
+    }
+
+    private void useKey(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("Use what?");
+            return;
+        }
+
+        if (!player.hasItem("key")) {
+            System.out.println("You don't have a key.");
+            return;
+        }
+
+        Room currentRoom = player.getCurrentRoom();
+        if (currentRoom.hasLockedDoors()) {
+            System.out.println("All locked doors are open now.");
+        } else {
+            System.out.println("There is nothing to open here.");
+        }
     }
 
     // implementations of user commands:

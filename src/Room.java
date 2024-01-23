@@ -60,8 +60,9 @@ public class Room
 //    public void setExit(String direction, Room room) {
 //        exits.put(direction, room);
 //    }
-    public void setExit(Direction direction, Room room) {
+    public boolean setExit(Direction direction, Room room) {
         exits.put(direction, room);
+        return false;
     }
 
 
@@ -114,4 +115,7 @@ public class Room
         items.add(item);
     }
 
+    public boolean hasLockedDoors() {
+        return false;
+    }
 }

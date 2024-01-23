@@ -67,4 +67,9 @@ public class Player {
         info += " is " + currentRoom.getFullDescription();
         return info;
     }
+
+
+    public boolean hasItem(String key) {
+        return true;
+    }
 }
